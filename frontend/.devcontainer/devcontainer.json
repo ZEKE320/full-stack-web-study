@@ -1,0 +1,17 @@
+// See https://containers.dev/implementors/json_reference/ for configuration reference
+{
+  "name": "Next.js Frontend",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "remoteUser": "node",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "esbenp.prettier-vscode",
+        "Postman.postman-for-vscode",
+        "dbaeumer.vscode-eslint"
+      ]
+    }
+  }
+}
