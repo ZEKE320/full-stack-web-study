@@ -10,6 +10,7 @@ from rest_framework_simplejwt.serializers import (
     TokenObtainPairSerializer,
     TokenRefreshSerializer,
 )
+from rest_framework.request import Request
 
 from api.inventory.exception import BusinessException
 from api.inventory.models import Product, Purchase, Sales
@@ -26,7 +27,7 @@ class LoginView(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = []
 
-    def post(self, request) -> Response:
+    def post(self, request: Request) -> Response:
         serializer = TokenObtainPairSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         access = serializer.validated_data.get("access", None)
@@ -46,7 +47,7 @@ class RetryView(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = []
 
-    def post(self, request) -> Response:
+    def post(self, request: Request) -> Response:
         request.data["refresh"] = request.META.get("HTTP_REFRESH_TOKEN")
         serializer = TokenRefreshSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -67,7 +68,7 @@ class LogoutView(APIView):
     authentication_classes = []
     permission_classes = []
 
-    def post(self, request, *args):
+    def post(self, request: Request, *args):
         response = Response(status=status.HTTP_200_OK)
         response.delete_cookie("access")
         response.delete_cookie("refresh")
@@ -75,7 +76,7 @@ class LogoutView(APIView):
 
 
 class InventoryView(APIView):
-    def get(self, request, id=None, format=None) -> Response:
+    def get(self, request: Request, id=None, format=None) -> Response:
         if id is None:
             return Response(status.HTTP_400_BAD_REQUEST)
         else:
@@ -113,7 +114,7 @@ class ProductView(APIView):
         except Product.DoesNotExist:
             raise NotFound
 
-    def get(self, request, id=None, format=None) -> Response:
+    def get(self, request: Request, id=None, format=None) -> Response:
         if id is None:
             queryset = Product.objects.all()
             serializer = ProductSerializer(queryset, many=True)
@@ -122,7 +123,7 @@ class ProductView(APIView):
             serializer = ProductSerializer(product)
         return Response(serializer.data, status.HTTP_200_OK)
 
-    def post(self, request, format=None):
+    def post(self, request: Request, format=None):
         serializer = ProductSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
@@ -141,21 +142,21 @@ class ProductView(APIView):
         serializer.save()
         return Response(serializer.data, status.HTTP_201_CREATED)
 
-    def put(self, request, id, format=None) -> Response:
+    def put(self, request: Request, id, format=None) -> Response:
         product = self.get_object(id)
         serializer = ProductSerializer(instance=product, data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status.HTTP_200_OK)
 
-    def delete(self, request, id, format=None) -> Response:
+    def delete(self, request: Request, id, format=None) -> Response:
         product = self.get_object(id)
         product.delete()
         return Response(status=status.HTTP_200_OK)
 
 
 class PurchaseView(APIView):
-    def post(self, request, format=None) -> Response:
+    def post(self, request: Request, format=None) -> Response:
         serializer = PurchaseSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
@@ -163,7 +164,7 @@ class PurchaseView(APIView):
 
 
 class SalesView(APIView):
-    def post(self, request, format=None) -> Response:
+    def post(self, request: Request, format=None) -> Response:
         serializer = SalesSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
