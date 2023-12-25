@@ -1,5 +1,14 @@
 "use client";
 
+import axios from "@/lib/plugins/axios";
+import { ProductData } from "@/lib/types/Product";
+import {
+  Add as AddIcon,
+  Cancel as CancelIcon,
+  Check as CheckIcon,
+  Delete as DeleteIcon,
+  Edit as EditIcon,
+} from "@mui/icons-material";
 import {
   Alert,
   AlertColor,
@@ -17,24 +26,9 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import {
-  Add as AddIcon,
-  Cancel as CancelIcon,
-  Check as CheckIcon,
-  Delete as DeleteIcon,
-  Edit as EditIcon,
-} from "@mui/icons-material";
-import { useForm } from "react-hook-form";
-import { useState, useEffect } from "react";
 import Link from "next/link";
-import productsData from "./sample/dummy_products.json";
-
-type ProductData = {
-  id: number | null;
-  name: string;
-  price: number;
-  description: string;
-};
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 
 export default function Page() {
   const {

@@ -1,5 +1,8 @@
 "use client";
 
+import axios from "@/lib/plugins/axios";
+import { InventoryData } from "@/lib/types/Inventory";
+import { ProductData, ProductFormData } from "@/lib/types/Product";
 import {
   Alert,
   AlertColor,
@@ -16,34 +19,12 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useState, useEffect } from "react";
-import productsData from "../sample/dummy_products.json";
-import inventoriesData from "../sample/dummy_inventories.json";
 
-type ProductData = {
-  id: number;
-  name: string;
-  price: number;
-  description: string;
-};
-
-type FormData = {
-  id: number;
-  quantity: number;
-};
-
-type InventoryData = {
-  id: number;
-  type: string;
-  date: string;
-  unit: number;
-  quantity: number;
-  price: number;
-  inventory: number;
-};
-
-export default function PagePage({ params }: { params: { id: number } }) {
+export default function PagePage({
+  params,
+}: Readonly<{ params: { id: number } }>) {
   const {
     register,
     handleSubmit,

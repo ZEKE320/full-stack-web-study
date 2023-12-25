@@ -1,9 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { Logout as LogoutIcon, Menu as MenuIcon } from "@mui/icons-material";
 import {
-  createTheme,
   AppBar,
   Box,
   Button,
@@ -17,9 +15,11 @@ import {
   ThemeProvider,
   Toolbar,
   Typography,
+  createTheme,
 } from "@mui/material";
-import { Logout as LogoutIcon, Menu as MenuIcon } from "@mui/icons-material";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+
 declare module "@mui/material/styles" {
   interface BreakpointOverrides {
     xs: false;
