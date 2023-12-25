@@ -37,9 +37,9 @@
         ]
       },
       "extensions": [
+        "donjayamanne.python-extension-pack",
         "christian-kohler.path-intellisense",
         "donjayamanne.git-extension-pack",
-        "donjayamanne.python-extension-pack",
         "esbenp.prettier-vscode",
         "GitHub.copilot-chat",
         "GitHub.copilot",
@@ -48,12 +48,22 @@
         "ms-python.black-formatter",
         "ms-python.gather",
         "ms-python.isort",
+        "ms-python.python",
         "oderwat.indent-rainbow",
         "seatonjiang.gitmoji-vscode",
         "streetsidesoftware.code-spell-checker",
         "VisualStudioExptTeam.intellicode-api-usage-examples",
         "VisualStudioExptTeam.vscodeintellicode-completions",
-        "VisualStudioExptTeam.vscodeintellicode"
+        "VisualStudioExptTeam.vscodeintellicode",
+        "tamasfe.even-better-toml",
+        "ms-python.mypy-type-checker",
+        "ms-python.pylint",
+        "Gruntfuggly.todo-tree",
+        "Postman.postman-for-vscode",
+        "yzhang.markdown-all-in-one",
+        "yzane.markdown-pdf",
+        "DavidAnson.vscode-markdownlint",
+        "kameshkotwani.google-search"
       ]
     }
   }
