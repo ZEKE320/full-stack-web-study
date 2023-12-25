@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  createTheme,
   Box,
   Button,
   Container,
@@ -42,7 +41,14 @@ export default function Page() {
   };
 
   const handleLogin = (data: FormData) => {
-    router.push("/inventory/products");
+    axios
+      .post("/api/inventory/login", data)
+      .then((response) => {
+        router.push("/inventory/products");
+      })
+      .catch((error) => {
+        setAuthError("ユーザー名またはパスワードに誤りがあります。");
+      });
   };
 
   return (

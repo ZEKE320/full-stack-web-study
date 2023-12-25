@@ -53,20 +53,34 @@ export default function PagePage({
     setOpen(false);
   };
   useEffect(() => {
-    const selectedProduct: ProductData = productsData.find(
-      (v) => v.id == params.id
-    ) ?? {
-      id: 0,
-      name: "",
-      price: 0,
-      description: "",
-    };
-    setProduct(selectedProduct);
-    setData(inventoriesData);
-  }, [open]);
+    axios.get(`/api/inventory/products/${params.id}`).then((response) => {
+      setProduct(response.data);
+    });
+
+    axios.get(`/api/inventory/inventories/${params.id}`).then((response) => {
+      const inventoryData: InventoryData[] = response.data;
+      let key: number = 1;
+      let inventory: number = 0;
+
+      response.data.forEach((e: InventoryData) => {
+        inventory += e.type === "1" ? e.quantity : e.quantity * -1;
+        const newElement = {
+          id: key++,
+          type: e.type,
+          date: e.date,
+          unit: e.unit,
+          quantity: e.quantity,
+          price: e.unit * e.quantity,
+          inventory: inventory,
+        };
+        inventoryData.unshift(newElement);
+      });
+      setData(inventoryData);
+    });
+  }, [open, params.id]);
 
   const onSubmit = (event: any): void => {
-    const data: FormData = {
+    const data: ProductFormData = {
       id: Number(params.id),
       quantity: Number(event.quantity),
     };
@@ -81,12 +95,28 @@ export default function PagePage({
     }
   };
 
-  const handlePurchase = (data: FormData) => {
-    result("success", "商品を仕入れました");
+  const handlePurchase = (data: ProductFormData) => {
+    const purchase = {
+      quantity: data.quantity,
+      purchase_date: new Date(),
+      product: data.id,
+    };
+
+    axios.post("/api/inventory/inventories", purchase).then((response) => {
+      result("success", "商品を仕入れました");
+    });
   };
 
-  const handleSell = (data: FormData) => {
-    result("success", "商品を卸しました");
+  const handleSell = (data: ProductFormData) => {
+    const sale = {
+      quantity: data.quantity,
+      sales_date: new Date(),
+      product: data.id,
+    };
+
+    axios.post("/api/inventory/sales", sale).then((response) => {
+      result("success", "商品を卸しました");
+    });
   };
 
   return (
