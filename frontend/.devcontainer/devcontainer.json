@@ -8,9 +8,30 @@
   "customizations": {
     "vscode": {
       "extensions": [
+        "christian-kohler.npm-intellisense",
+        "christian-kohler.path-intellisense",
+        "DavidAnson.vscode-markdownlint",
+        "dbaeumer.vscode-eslint",
+        "donjayamanne.git-extension-pack",
         "esbenp.prettier-vscode",
+        "GitHub.copilot-chat",
+        "GitHub.copilot",
+        "Gruntfuggly.todo-tree",
+        "kameshkotwani.google-search",
+        "mhutchie.git-graph",
+        "oderwat.indent-rainbow",
         "Postman.postman-for-vscode",
-        "dbaeumer.vscode-eslint"
+        "redhat.fabric8-analytics",
+        "redhat.vscode-yaml",
+        "seatonjiang.gitmoji-vscode",
+        "SonarSource.sonarlint-vscode",
+        "VisualStudioExptTeam.intellicode-api-usage-examples",
+        "VisualStudioExptTeam.vscodeintellicode-completions",
+        "VisualStudioExptTeam.vscodeintellicode",
+        "yzane.markdown-pdf",
+        "yzhang.markdown-all-in-one",
+        "felipecaputo.git-project-manager",
+        "streetsidesoftware.code-spell-checker"
       ]
     }
   }
