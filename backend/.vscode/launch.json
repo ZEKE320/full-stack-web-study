@@ -5,11 +5,29 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Django: launch dev",
+      "name": "Django: Launch Dev",
       "type": "python",
       "request": "launch",
       "program": "${workspaceFolder}/manage.py",
       "args": ["runserver", "--settings", "config.settings.development"],
+      "django": true,
+      "justMyCode": true
+    },
+    {
+      "name": "Django: Make Migrations Dev",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/manage.py",
+      "args": ["makemigrations", "--settings", "config.settings.development"],
+      "django": true,
+      "justMyCode": true
+    },
+    {
+      "name": "Django: Migrate Dev",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/manage.py",
+      "args": ["migrate", "--settings", "config.settings.development"],
       "django": true,
       "justMyCode": true
     }
