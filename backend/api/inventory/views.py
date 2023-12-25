@@ -1,10 +1,17 @@
+from django.conf import settings
 from django.db.models import F, Sum, Value
 from django.db.models.functions import Coalesce
 from rest_framework import status
 from rest_framework.exceptions import NotFound
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework_simplejwt.serializers import (
+    TokenObtainPairSerializer,
+    TokenRefreshSerializer,
+)
 
+from api.inventory.exception import BusinessException
 from api.inventory.models import Product, Purchase, Sales
 from api.inventory.serializers import (
     InventorySerializer,
@@ -13,12 +20,62 @@ from api.inventory.serializers import (
     SalesSerializer,
 )
 
-from api.inventory.exception import BusinessException
-
 
 # Create your views here.
+class LoginView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = []
+
+    def post(self, request) -> Response:
+        serializer = TokenObtainPairSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        access = serializer.validated_data.get("access", None)
+        refresh = serializer.validated_data.get("refresh", None)
+        if access:
+            response = Response(status=status.HTTP_200_OK)
+            max_age = settings.COOKIE_TIME
+            response.set_cookie("access", access, httponly=True, max_age=max_age)
+            response.set_cookie("refresh", refresh, httponly=True, max_age=max_age)
+            return response
+        return Response(
+            {"errMsg": "ユーザーの認証に失敗しました。"}, status=status.HTTP_401_UNAUTHORIZED
+        )
+
+
+class RetryView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = []
+
+    def post(self, request) -> Response:
+        request.data["refresh"] = request.META.get("HTTP_REFRESH_TOKEN")
+        serializer = TokenRefreshSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        access = serializer.validated_data.get("access", None)
+        refresh = serializer.validated_data.get("refresh", None)
+        if access:
+            response = Response(status=status.HTTP_200_OK)
+            max_age = settings.COOKIE_TIME
+            response.set_cookie("access", access, httponly=True, max_age=max_age)
+            response.set_cookie("refresh", refresh, httponly=True, max_age=max_age)
+            return response
+        return Response(
+            {"errMsg": "ユーザーの認証に失敗しました。"}, status=status.HTTP_401_UNAUTHORIZED
+        )
+
+
+class LogoutView(APIView):
+    authentication_classes = []
+    permission_classes = []
+
+    def post(self, request, *args):
+        response = Response(status=status.HTTP_200_OK)
+        response.delete_cookie("access")
+        response.delete_cookie("refresh")
+        return response
+
+
 class InventoryView(APIView):
-    def get(self, request, id=None, format=None):
+    def get(self, request, id=None, format=None) -> Response:
         if id is None:
             return Response(status.HTTP_400_BAD_REQUEST)
         else:
@@ -50,13 +107,13 @@ class InventoryView(APIView):
 
 
 class ProductView(APIView):
-    def get_object(self, pk):
+    def get_object(self, pk) -> Product:
         try:
             return Product.objects.get(pk=pk)
         except Product.DoesNotExist:
             raise NotFound
 
-    def get(self, request, id=None, format=None):
+    def get(self, request, id=None, format=None) -> Response:
         if id is None:
             queryset = Product.objects.all()
             serializer = ProductSerializer(queryset, many=True)
@@ -84,21 +141,21 @@ class ProductView(APIView):
         serializer.save()
         return Response(serializer.data, status.HTTP_201_CREATED)
 
-    def put(self, request, id, format=None):
+    def put(self, request, id, format=None) -> Response:
         product = self.get_object(id)
         serializer = ProductSerializer(instance=product, data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status.HTTP_200_OK)
 
-    def delete(self, request, id, format=None):
+    def delete(self, request, id, format=None) -> Response:
         product = self.get_object(id)
         product.delete()
         return Response(status=status.HTTP_200_OK)
 
 
 class PurchaseView(APIView):
-    def post(self, request, format=None):
+    def post(self, request, format=None) -> Response:
         serializer = PurchaseSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
@@ -106,7 +163,7 @@ class PurchaseView(APIView):
 
 
 class SalesView(APIView):
-    def post(self, request, format=None):
+    def post(self, request, format=None) -> Response:
         serializer = SalesSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
