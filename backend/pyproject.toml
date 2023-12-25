@@ -8,6 +8,10 @@ version = "0.1.0"
 python = "^3.11"
 djangorestframework = "^3.14.0"
 mysqlclient = "^2.2.1"
+djangorestframework-simplejwt = "^5.3.1"
+pylint-django = "^2.5.5"
+django-stubs = "^4.2.7"
+djangorestframework-stubs = "^3.14.5"
 
 
 [build-system]
