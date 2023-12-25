@@ -2,22 +2,30 @@
 // README at: https://github.com/devcontainers/templates/tree/main/src/python
 {
   "name": "Python 3 Backend",
+
   // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
   "image": "mcr.microsoft.com/devcontainers/python:1-3.11-bookworm",
 
   // Features to add to the dev container. More info: https://containers.dev/features.
-  // "features": {},
+  "features": {
+    "ghcr.io/devcontainers-contrib/features/poetry:2": {}
+  },
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
   // "forwardPorts": [],
 
   // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "pip3 install --user -r requirements.lock",
+  "postCreateCommand": "poetry install --no-root",
+
+  "containerEnv": {
+    "POETRY_VIRTUALENVS_IN_PROJECT": "true"
+  },
 
   // Configure tool-specific properties.
   "customizations": {
     "vscode": {
       "settings": {
+        "python.defaultInterpreterPath": "./.venv/bin/python",
         "[python]": {
           "editor.tabSize": 4
         },
