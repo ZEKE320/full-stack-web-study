@@ -63,7 +63,7 @@ export default function PagePage({
       let inventory: number = 0;
 
       response.data.forEach((e: InventoryData) => {
-        inventory += e.type === "1" ? e.quantity : e.quantity * -1;
+        inventory += e.type === 1 ? e.quantity : e.quantity * -1;
         const newElement = {
           id: key++,
           type: e.type,
