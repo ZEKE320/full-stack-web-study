@@ -48,11 +48,11 @@ class RetryView(APIView):
     permission_classes = []
 
     def post(self, request: Request) -> Response:
-        request.data["refresh"] = request.META.get("HTTP_REFRESH_TOKEN")
+        refresh = request.COOKIES.get("refresh")
+        request.data["refresh"] = refresh
         serializer = TokenRefreshSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         access = serializer.validated_data.get("access", None)
-        refresh = serializer.validated_data.get("refresh", None)
         if access:
             response = Response(status=status.HTTP_200_OK)
             max_age = settings.COOKIE_TIME
