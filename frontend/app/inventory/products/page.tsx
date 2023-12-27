@@ -60,6 +60,7 @@ export default function Page() {
   }, [open]);
 
   const [id, setId] = useState<number | null>(0);
+
   const [action, setAction] = useState<string>("");
   const onSubmit = (event: any): void => {
     const data: ProductData = {
@@ -68,6 +69,7 @@ export default function Page() {
       price: Number(event.price),
       description: event.description,
     };
+
     if (action === "add") {
       handleAdd(data);
     } else if (action === "update") {
@@ -94,6 +96,7 @@ export default function Page() {
   const handleAddCancel = () => {
     setId(0);
   };
+
   const handleAdd = (data: ProductData) => {
     axios.post("/api/inventory/products", data).then((response) => {
       result("success", "商品が登録されました");

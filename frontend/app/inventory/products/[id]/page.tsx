@@ -52,6 +52,7 @@ export default function PagePage({
   const handleClose = (event: any, reason: any) => {
     setOpen(false);
   };
+
   useEffect(() => {
     axios.get(`/api/inventory/products/${params.id}`).then((response) => {
       setProduct(response.data);
