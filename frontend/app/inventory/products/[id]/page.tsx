@@ -189,8 +189,10 @@ export default function PagePage({
           <TableBody>
             {data.map((data: InventoryData) => (
               <TableRow key={data.id}>
-                <TableCell>{data.type}</TableCell>
-                <TableCell>{data.date}</TableCell>
+                <TableCell>{data.type === 1 ? "仕入れ" : "卸し"}</TableCell>
+                <TableCell>
+                  {new Date(data.date).toLocaleDateString()}
+                </TableCell>
                 <TableCell>{data.unit}</TableCell>
                 <TableCell>{data.quantity}</TableCell>
                 <TableCell>{data.price}</TableCell>
