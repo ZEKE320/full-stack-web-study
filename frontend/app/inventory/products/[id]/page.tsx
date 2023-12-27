@@ -102,7 +102,7 @@ export default function PagePage({
       product: data.id,
     };
 
-    axios.post("/api/inventory/inventories", purchase).then((response) => {
+    axios.post("/api/inventory/purchases", purchase).then((response) => {
       result("success", "商品を仕入れました");
     });
   };
