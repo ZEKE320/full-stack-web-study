@@ -58,7 +58,7 @@ export default function PagePage({
     });
 
     axios.get(`/api/inventory/inventories/${params.id}`).then((response) => {
-      const inventoryData: InventoryData[] = response.data;
+      const inventoryData: InventoryData[] = [];
       let key: number = 1;
       let inventory: number = 0;
 
