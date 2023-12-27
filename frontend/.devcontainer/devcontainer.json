@@ -5,6 +5,9 @@
     "dockerfile": "Dockerfile"
   },
   "remoteUser": "node",
+
+  "postCreateCommand": "yarn install",
+
   "customizations": {
     "vscode": {
       "extensions": [
