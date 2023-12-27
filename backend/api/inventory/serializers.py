@@ -8,7 +8,7 @@ class InventorySerializer(serializers.Serializer):
     unit = serializers.IntegerField()
     quantity = serializers.IntegerField()
     type = serializers.IntegerField()
-    date = serializers.DateField()
+    date = serializers.DateTimeField()
 
 
 class ProductSerializer(serializers.ModelSerializer):
