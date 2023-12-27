@@ -1,6 +1,6 @@
 export type InventoryData = {
   id: number;
-  type: string;
+  type: number;
   date: string;
   unit: number;
   quantity: number;
