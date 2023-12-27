@@ -13,7 +13,7 @@ from rest_framework_simplejwt.serializers import (
 from rest_framework.request import Request
 
 from api.inventory.exception import BusinessException
-from api.inventory.models import Product, Purchase, Sales
+from api.inventory.models import Product, Purchase, Sale
 from api.inventory.serializers import (
     InventorySerializer,
     ProductSerializer,
@@ -163,7 +163,7 @@ class PurchaseView(APIView):
         return Response(serializer.data, status.HTTP_201_CREATED)
 
 
-class SalesView(APIView):
+class SaleView(APIView):
     def post(self, request: Request, format=None) -> Response:
         serializer = SalesSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)

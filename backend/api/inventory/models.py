@@ -24,7 +24,7 @@ class Purchase(models.Model):
         verbose_name = "仕入"
 
 
-class Sales(models.Model):
+class Sale(models.Model):
     product: models.ForeignKey = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity: models.IntegerField = models.IntegerField(verbose_name="数量")
     sales_date: models.DateTimeField = models.DateTimeField(verbose_name="売上日時")
