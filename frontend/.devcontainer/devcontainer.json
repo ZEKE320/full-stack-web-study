@@ -31,7 +31,9 @@
         "yzane.markdown-pdf",
         "yzhang.markdown-all-in-one",
         "felipecaputo.git-project-manager",
-        "streetsidesoftware.code-spell-checker"
+        "streetsidesoftware.code-spell-checker",
+        "ms-azuretools.vscode-docker",
+        "GitHub.vscode-pull-request-github"
       ]
     }
   }
