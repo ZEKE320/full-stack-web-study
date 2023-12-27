@@ -126,19 +126,6 @@ class ProductView(APIView):
     def post(self, request: Request, format=None):
         serializer = ProductSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-
-        purchase = Purchase.objects.filter(
-            product_id=request.data["product"]
-        ).aggregate(quantity_sum=Coalesce(Sum("quantity"), 0))
-        sales = Sales.objects.filter(product_id=request.data["product"]).aggregate(
-            quantity_sum=Coalesce(Sum("quantity"), 0)
-        )
-
-        if purchase["quantity_sum"] < (
-            sales["quantity_sum"] + int(request.data["quantity"])
-        ):
-            raise BusinessException("在庫数量を超過することはできません。")
-
         serializer.save()
         return Response(serializer.data, status.HTTP_201_CREATED)
 
@@ -167,5 +154,20 @@ class SaleView(APIView):
     def post(self, request: Request, format=None) -> Response:
         serializer = SalesSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
+
+        purchase = Purchase.objects.filter(
+            product_id=request.data["product"]
+        ).aggregate(
+            quantity_sum=Coalesce(Sum("quantity"), 0)
+        )  # 在庫テーブルのレコードを取得
+        sales = Sale.objects.filter(product_id=request.data["product"]).aggregate(
+            quantity_sum=Coalesce(Sum("quantity"), 0)
+        )  # 卸しテーブルのレコードを取得
+
+        if purchase["quantity_sum"] < (
+            sales["quantity_sum"] + int(request.data["quantity"])
+        ):
+            raise BusinessException("在庫数量を超過することはできません")
+
         serializer.save()
         return Response(serializer.data, status.HTTP_201_CREATED)
