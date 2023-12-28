@@ -8,11 +8,7 @@
 
   "postCreateCommand": "yarn install",
 
-  "runArgs": ["--device=/dev/net/tun"],
-
-  "features": {
-    "ghcr.io/tailscale/codespace/tailscale:latest": {}
-  },
+  "features": {},
 
   "customizations": {
     "vscode": {
