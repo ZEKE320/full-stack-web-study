@@ -8,6 +8,10 @@
 
   "postCreateCommand": "yarn install",
 
+  "features": {
+    "ghcr.io/tailscale/codespace": {}
+  },
+
   "customizations": {
     "vscode": {
       "extensions": [
