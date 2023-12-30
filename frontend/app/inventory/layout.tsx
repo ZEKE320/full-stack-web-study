@@ -40,11 +40,8 @@ const defaultTheme = createTheme({
     },
   },
 });
-export default function InventoryLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+
+const InventoryLayout = ({ children }: { children: React.ReactNode }) => {
   const [open, setOpen] = useState(false);
   const toggleDrawer = (open: boolean) => {
     setOpen(open);
@@ -146,4 +143,6 @@ export default function InventoryLayout({
       </Box>
     </ThemeProvider>
   );
-}
+};
+
+export default InventoryLayout;

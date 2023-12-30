@@ -21,7 +21,7 @@ type FormData = {
   password: string;
 };
 
-export default function Page() {
+const Page = () => {
   const {
     register,
     handleSubmit,
@@ -114,4 +114,6 @@ export default function Page() {
       </Container>
     </ThemeProvider>
   );
-}
+};
+
+export default Page;

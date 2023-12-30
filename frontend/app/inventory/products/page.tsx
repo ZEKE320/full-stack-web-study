@@ -30,7 +30,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
-export default function Page() {
+const Page = () => {
   const {
     register,
     handleSubmit,
@@ -337,4 +337,6 @@ export default function Page() {
       </Box>
     </>
   );
-}
+};
+
+export default Page;
