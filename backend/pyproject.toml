@@ -6,11 +6,14 @@ version = "0.1.0"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-django-stubs = {extras = ["mypy"], version = "^4.2.7"}
+django-stubs = { extras = ["compatible-mypy"], version = "^4.2.7" }
 djangorestframework = "^3.14.0"
 djangorestframework-simplejwt = "^5.3.1"
-djangorestframework-stubs = {extras = ["mypy"], version = "^3.14.5"}
+djangorestframework-stubs = { extras = [
+  "compatible-mypy",
+], version = "^3.14.5" }
 mysqlclient = "^2.2.1"
+pylint-django = { extras = ["with-django"], version = "^2.5.5" }
 pandas = "^2.1.4"
 pandas-stubs = "^2.1.4.231227"
 
