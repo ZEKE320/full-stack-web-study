@@ -28,7 +28,7 @@ axios_instance.interceptors.response.use(
         return Promise.reject(error);
       }
 
-      axios_instance
+      return axios_instance
         .post("/api/inventory/retry", {
           refresh: "",
         })
