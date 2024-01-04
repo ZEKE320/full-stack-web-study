@@ -22,9 +22,7 @@ import {
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
-export default function PagePage({
-  params,
-}: Readonly<{ params: { id: number } }>) {
+const Page = ({ params }: Readonly<{ params: { id: number } }>) => {
   const {
     register,
     handleSubmit,
@@ -205,4 +203,6 @@ export default function PagePage({
       </TableContainer>
     </>
   );
-}
+};
+
+export default Page;

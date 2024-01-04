@@ -7,7 +7,7 @@
   "remoteUser": "node",
 
   "postCreateCommand": "yarn install",
-  
+
   "features": {},
 
   "customizations": {
@@ -38,7 +38,9 @@
         "felipecaputo.git-project-manager",
         "streetsidesoftware.code-spell-checker",
         "ms-azuretools.vscode-docker",
-        "GitHub.vscode-pull-request-github"
+        "GitHub.vscode-pull-request-github",
+        "mechatroner.rainbow-csv",
+        "GrapeCity.gc-excelviewer"
       ]
     }
   }
